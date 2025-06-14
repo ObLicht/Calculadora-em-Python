@@ -1,0 +1,94 @@
+from tkinter import * 
+from tkinter import ttk
+
+janela = Tk()
+janela.title("Calculadora")
+janela.geometry("235x310")
+janela.config(bg= "#3b3b3b")
+
+frame_tela = Frame(janela, width=235, height=70, bg = "#4e8e99")
+frame_tela.grid(row=0, column=0)
+
+frame_corpo = Frame(janela, width=235, height=205)
+frame_corpo.grid(row=1, column=0)
+
+agregar = ''
+
+def entrada_valores(event):
+    global agregar
+
+    agregar = agregar + str(event)
+
+    valorDoTexto.set(agregar)
+
+def calcular():
+    global agregar
+    try:
+        resultado = eval(agregar)
+        valorDoTexto.set(str(resultado))
+        agregar = str(resultado)
+    except:
+        valorDoTexto.set("Erro")
+        agregar = ''
+
+def clear():
+    global agregar
+    agregar = ''
+    valorDoTexto.set('')
+
+valorDoTexto = StringVar()
+
+x_direita = 235 - (20 * 8) #160px (20 caracteres, 8px cada)
+app_label = Label(frame_tela, textvariable=valorDoTexto , width=16, height=2, padx=7,
+                  relief=FLAT, anchor="e", font="18", bg="#4e8e99", fg="#f7f7f7")
+app_label.place(x=x_direita, y=15)
+
+#b = botão equivalente
+
+#primeira coluna
+b_c = Button(frame_corpo, command=clear, text="C", width=15, height=2, bg="#83789c")
+b_c.place(x=0, y=0) #c = clear
+b_M = Button(frame_corpo, command=lambda: entrada_valores('%'), text="%", width=7, height=2, bg="#83789c")
+b_M.place(x=116, y=0) #M = módulo
+b_D = Button(frame_corpo, command=lambda: entrada_valores('/'),text="/", width=7, height=2, bg="#8a5367")
+b_D.place(x=176, y=0) #D = divisão
+
+#Segunda coluna
+b_1 = Button(frame_corpo, command=lambda: entrada_valores('1') ,text="1", width=7, height=2, bg="#83789c")
+b_1.place(x=0, y=41)
+b_2 = Button(frame_corpo, command=lambda: entrada_valores('2'),text="2", width=7, height=2, bg="#83789c")
+b_2.place(x=58, y=41)
+b_3 = Button(frame_corpo, command=lambda: entrada_valores('3'),text="3", width=7, height=2, bg="#83789c")
+b_3.place(x=116, y=41)
+b_x = Button(frame_corpo, command=lambda: entrada_valores('*'),text="x", width=7, height=2, bg="#8a5367" )
+b_x.place(x=176, y=41) #X = multiplicação
+
+#Terceira coluna
+b_4 = Button(frame_corpo, command=lambda: entrada_valores('4'),text="4", width=7, height=2, bg="#83789c")
+b_4.place(x=0, y=82)
+b_5 = Button(frame_corpo, command=lambda: entrada_valores('5'),text="5", width=7, height=2, bg="#83789c")
+b_5.place(x=58, y=82)
+b_6 = Button(frame_corpo, command=lambda: entrada_valores('6'),text="6", width=7, height=2, bg="#83789c")
+b_6.place(x=116, y=82)
+b_A= Button(frame_corpo, command=lambda: entrada_valores('+'),text="+", width=7, height=2, bg="#8a5367" )
+b_A.place(x=176, y=82) #A = adição
+
+#Quarta coluna
+b_7 = Button(frame_corpo, command=lambda: entrada_valores('7'), text="7", width=7, height=2, bg="#83789c")
+b_7.place(x=0, y=123)
+b_8 = Button(frame_corpo, command=lambda: entrada_valores('8'), text="8", width=7, height=2, bg="#83789c")
+b_8.place(x=58, y=123)
+b_9 = Button(frame_corpo, command=lambda: entrada_valores('9'), text="9", width=7, height=2, bg="#83789c")
+b_9.place(x=116, y=123)
+b_S= Button(frame_corpo, command=lambda: entrada_valores('-'), text="-", width=7, height=2, bg="#8a5367" )
+b_S.place(x=176, y=123) #S = substração
+
+#Quinta coluna 
+b_0 = Button(frame_corpo, command=lambda: entrada_valores('0'), text="0", width=15, height=2, bg="#83789c")
+b_0.place(x=0, y=164)
+b_ponto = Button(frame_corpo, command=lambda: entrada_valores('.'),text=".", width=7, height=2, bg="#83789c")
+b_ponto.place(x=116, y=164)
+b_igual= Button(frame_corpo, command=calcular, text="=", width=7, height=2, bg="#8a5367" )
+b_igual.place(x=176, y=164)
+
+janela.mainloop()
